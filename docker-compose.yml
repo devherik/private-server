@@ -15,6 +15,8 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    environment:
+      - WAHA_API_KEY=${WAHA_API_KEY}
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"]
       interval: 30s
@@ -39,6 +41,8 @@ services:
     image: pgvector/pgvector:pg17
     container_name: postgres_server
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
